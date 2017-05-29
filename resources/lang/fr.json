@@ -1,5 +1,14 @@
 {
     "All Articles : ": "Tous les articles : ",
     "welcome to itelsys application": "Bienvenu dans Itelsys application",
-    "Number of articles : ":"Nombres d'articles : "
+    "Number of articles : ":"Nombres d'articles : ",
+    "Published on ": "Publié le ",
+    "Source : ":"Source : ",
+    "Author : ": "Autheur : ",
+    "View PDF" : "Visualiser PDF",
+     "Show items" : "Afficher Articles",
+     "Filter by keywords: ": "Filtrer par mots clés: ",
+     "Filter by Language: ": "Filtrer par Langage : ",
+     "Filter by Source : ": "Filtrer par Source : ",
+     "Download PDF": "Télécharger PDF"
 }

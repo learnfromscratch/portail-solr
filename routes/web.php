@@ -62,7 +62,13 @@ Route::group(['prefix' => $locale], function () {
             });
 
         Route::get('/admin/dashboard', 'AdminController@index')->name('dashboard');
-
+        
+        /*
+        Route::get('/', function($params){
+            unset($params['language']);
+            return redirect('/');
+        })->name('closes');
+*/
         Route::get('/admin/indexing', 'AdminController@indexing')->name('indexing');
 
         Route::get('test/index', 'TestController@index');

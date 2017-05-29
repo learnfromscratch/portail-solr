@@ -62,14 +62,15 @@ nav[aria-label="Page navigation"] {
 }
 .articles {
 	float:right;
-	width: 80%;
+	width: 77%;
 	position: relative;
 }
 .widget {
 	float: left;
-    border-right: 1px dotted;
+    border: 1px dotted;
     background: #f1f1f1;
     padding: 10px;
+    width: 20%;
 }
 
 .input-date {
@@ -77,7 +78,9 @@ nav[aria-label="Page navigation"] {
     margin-left: 10px;
 }
 .form-date {
-	margin-bottom: 10px;
+	    position: absolute;
+        left: -16px;
+    top: -31px;
 }
 .search {
 	    margin: 80px auto 0;
@@ -88,8 +91,61 @@ nav[aria-label="Page navigation"] {
 }
 .hr-search {
 	margin-top:25px !important;
+	    margin-bottom: 35px;
+	        width: 104%
 }
 .download {
 	    position: absolute;
-    top: -45px;
+    top: -19px;
+    right: -14px;
+}
+
+.widget i {
+	float:right;
+}
+.widget a {
+	font-size: 14px;
+    text-decoration: none;
+    color: #009f9f;
+    font-style: italic;
+}
+.widget .keywords, .widget .source, .widget .language {
+	
+    padding-bottom: 12px;
+}
+.widget h4 {
+	    
+    border-bottom: 1px dotted;
+    padding-bottom: 9px;
+    margin: 0;
+}
+.actives {
+	background-color: #009f9f;
+    color: white;
+    padding: 5px;
+}
+
+.w3-green {
+	background-color: #3097d1 !important;
+}
+
+.w3-blue {
+	background-color : #3097d1 !important;
+}
+
+#comboA {
+	background-color: #f1f1f1;
+	    color: #009f9f;
+}
+::selection {
+  background: #009f9f; /* WebKit/Blink Browsers */
+  color: white;
+}
+
+.widget button{
+	    background: none;
+    border: none;
+}
+.widget .closes {
+	color: white;
 }

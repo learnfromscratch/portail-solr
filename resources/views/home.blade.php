@@ -11,7 +11,7 @@
         
             <form class="search-form" role="search" action="{{ route('roots') }}" method="get">
                 <div class="input-group search">
-                    <input type="text" name="data" id="data" placeholder="Recherche" class="form-control input-lg" ng-model="name">
+                    <input type="text" value="{{array_key_exists('data',$params) ? $params['data'] : ''}}" name="data" id="data" placeholder="Recherche" class="form-control input-lg" ng-model="name">
                     <a  class="input-group-addon w3-blue"><i class="fa fa-search fa-fw" aria-hidden="true"></i></a>
                 </div>
             </form>
@@ -22,8 +22,8 @@
         </div>
 
         
-        <h4>{{ __('welcome to itelsys application') }}</h4>
-        <h5 class="number-articles">{{ __('Number of articles : ') }}<i>{{ $resultset->getNumFound() }} </i></h5>
+        <!-- <h4>{{ __('welcome to itelsys application') }}</h4> -->
+        
 
 
         <!-- A voir l'optimisation du Code-->
@@ -38,20 +38,16 @@
            
         </div>
 -->
-<form class="search-form pull-right form-date" role="search" action="{{ route('roots') }}" method="get">
-    <div class="input-daterange input-group ranges" id="datepicker">
-        <input type="text" name="fromdate" class="input-sm form-control" name="start" placeholder="Date du Debut" />
-        <span class="input-group-addon">to</span>
-        <input type="text" name="todate" class="input-sm form-control" name="end" placeholder="Date du Fin"/>
-    </div>
-     <input type="submit" class="btn btn-primary input-date" value="Afficher Articles">
-</form><br>
+<!--
+    <p>Active Filters : <i class="badge"  >English</i><i class="badge"  >Date <a href="#">x</a></i></p>
+-->
         <div class="widget">
+        <em class="number-articles">{{ __('Number of articles : ') }}<i>{{ $resultset->getNumFound() }} </i></em>
             @if(!empty($params['data']))
             <!-- {{$user_id}}
             {{ route('roots',$request->all()) }}
             -->
-            <br><strong>Sort par : </strong><br>
+            <br><br>
             <select id="comboA" onchange="getComboA(this)" class="form-control">
                 @if(!empty($params['sort']) and $params['sort'] == 'pertinence')
                     <option value='pertinence' selected="selected">Relevance</option>
@@ -68,39 +64,58 @@
             </select>
         @endif
         <!-- This is custom facade, so I have to code everything-->
-        <br><strong>Filter by keywords: </strong><br>
-        @foreach($numberss as $key => $count)
-            @if (empty($params['keyword']))
-                @if($count > 0)
-                <a href="{{ route('roots', $params) }}{{$sign}}keyword={{$key}}">{{ $key.'['.$count.']' }}</a><br>
-                @endif
-            @elseif ($params['keyword'] == $key)
-                {{ $key.'['.$count.']' }}<br>
-            @endif
-        @endforeach
+        <div class="keywords">
+            <br><h4>{{ __('Filter by keywords: ') }}</h4><br>
+            @foreach($numberss as $key => $count)
+                @if (empty($params['keyword']))
+                    @if($count > 0)
+                    <a href="{{ route('roots', $params) }}{{$sign}}keyword={{$key}}">{{ $key}}</a><i>{{$count}}</i><br>
+                    @endif
+                @elseif ($params['keyword'] == $key)
+                 <p class="actives">{{ $key}}<i>{{$count}}</i></p><br>
                   
-        <strong>Filter by Language :</strong><br>
-        @foreach ($facet1 as $value => $count)
-            @if (empty($params['language']))
-            <a href="{{ route('roots', $params) }}{{$sign}}language={{$value}}">{{ $value.'['.$count.']' }}</a><br>
-            @elseif ($params['language'] == $value)
-                {{ $value.'['.$count.']' }}<br>
-            @endif
-        @endforeach
-        <strong>Filter by Source :</strong><br>
-        @foreach ($facet3 as $value => $count)
-           @if (empty($params['source']))
+                @endif
+            @endforeach
+        </div> 
+        <div class="language">       
+            <h4>{{ __('Filter by Language :') }}</h4><br>
+            @foreach ($facet1 as $value => $count)
+                @if (empty($params['language']))
+                <a href="{{ route('roots', $params) }}{{$sign}}language={{$value}}">{{ $value}}<i>{{$count}}</i></a><br>
+                @elseif ($params['language'] == $value)
+                     <p class="actives">
+                    {{ $value}}
+                     <a href="#" class="closes"><i class="fa fa-times-circle" aria-hidden="true"></i></a href="#">
+                     <i>{{$count}}</i>
+                    </p><br>
+                @endif
+            @endforeach
+        </div>
+        <div class="source">  
+            <h4>{{ __('Filter by Source :') }}</h4><br>
+            @foreach ($facet3 as $value => $count)
+               @if (empty($params['source']))
 
-                <a href="{{ route('roots', $params)}}{{$sign}}source={{$value}}">{{ $value.'['.$count.']' }}</a><br>
-             @elseif ($params['source'] == $value)
-                {{ $value.'['.$count.']' }}<br>
-            @endif
-        @endforeach
-
+                    <a href="{{ route('roots', $params)}}{{$sign}}source={{$value}}">{{ $value}}</a><i>{{$count}}</i><br>
+                 @elseif ($params['source'] == $value)
+                    <p class="actives">{{ $value}}<i>{{$count}}</i></p><br>
+                @endif
+            @endforeach
+        </div>
         </div>
 
         
 <div class="articles">
+<form class="search-form form-date" role="search" action="{{ route('roots') }}" method="get">
+    <div class="input-daterange input-group ranges" id="datepicker">
+        <input type="text" name="fromdate" class="input-sm form-control" value="{{array_key_exists('fromdate',$params) ? $params['fromdate'] : ''}}"  placeholder="Date du Debut" />
+        <span class="input-group-addon">to</span>
+        <input type="text" name="todate" class="input-sm form-control" placeholder="Date du Fin" value="{{array_key_exists('todate',$params) ? $params['todate'] : ''}}"/>
+    </div>
+     <!-- <input type="submit" class="btn btn-primary input-date" value="Afficher Articles">-->
+     <button class="btn btn-primary input-date"><i class="fa fa-search fa-fw" aria-hidden="true"></i></button>
+</form><br>
+
         @php 
             $highlighting = $resultset->getHighlighting(); 
             $pdfs = [];
@@ -152,7 +167,7 @@
                         </a>
 
                         </h4>
-                        <i>Publié le {{ $date }}</i>
+                        <i>{{ __('Published on ') }}{{ $date }}</i>
                         <p>
                        
                             {!! (count($highlightedDoc->getField('Fulltext'))) ? implode(' ... ', $highlightedDoc->getField('Fulltext')) : substr($document->Fulltext,0,500) !!}
@@ -160,13 +175,13 @@
                             {!! (count($highlightedDoc->getField('Fulltext_fr'))) ? implode(' ... ', $highlightedDoc->getField('Fulltext_fr')) : substr($document->Fulltext_fr,0,500) !!}
                             {!! (count($highlightedDoc->getField('Fulltext_ar'))) ? implode(' ... ', $highlightedDoc->getField('Fulltext_ar')) : substr($document->Fulltext_ar,0,500) !!}
                         </p>
-                        <i>Source : {{ $document->Source }}</i><br>
+                        <i>{{ __('Source : ') }}{{ $document->Source }}</i><br>
                         
-                        <i>Auteur : <a href="{{ route('roots', ['author' => urlencode($document->Author)]) }}">{{ $document->Author }}</a></i>
+                        <i>{{ __('Author : ') }}<a href="{{ route('roots', ['author' => urlencode($document->Author)]) }}">{{ $document->Author }}</a></i>
                         @if(!empty($params['data']))
                             <br><i>Score {{ $document->score }}</i>
                         @endif
-                        <br><a href="{{ $pdf1 }}" target="_blank" class="w3-btn w3-green">Visualiser pdf</a>
+                        <br><a href="{{ $pdf1 }}" target="_blank" class="w3-btn w3-green">{{ __('View PDF') }}</a>
                       
                       </div>
                     </div>
@@ -178,7 +193,7 @@
                     
                 @endphp
         @endforeach
-          <a href="{{ route('articles.test', ['pdf' => $pdfs, 'titles' => $titles]) }}" target="_blank" class="w3-btn pull-left w3-green download">Télécharger tous les PDF</a>
+          <a href="{{ route('articles.test', ['pdf' => $pdfs, 'titles' => $titles]) }}" target="_blank" class="w3-btn pull-left w3-green download">{{ __('Download PDF') }}</a>
         @php 
         
             $num = $resultset->getNumFound() / 10;
