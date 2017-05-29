@@ -1,0 +1,27 @@
+body, html {
+	font-family: 'RobotoDraft', 'Roboto', sans-serif;
+	font-weight: 300;
+	background-color: white;
+}
+
+h1 {
+	font-weight: 300;
+}
+
+.log-margin {
+	margin-top: 100px;
+}
+
+.margin {
+	margin-top: 50px;
+}
+
+.nav-second-level {
+	margin-left: 40px;
+}
+
+.sidebar {
+	height: 100%;
+}
+
+
