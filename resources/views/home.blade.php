@@ -12,7 +12,9 @@
             <form class="search-form" role="search" action="{{ route('roots') }}" method="get">
                 <div class="input-group search">
                     <input type="text" value="{{array_key_exists('data',$params) ? $params['data'] : ''}}" name="data" id="data" placeholder="Recherche" class="form-control input-lg" ng-model="name">
-                    <a  class="input-group-addon w3-blue"><i class="fa fa-search fa-fw" aria-hidden="true"></i></a>
+                    <button type='submit' class="input-group-addon w3-blue">
+                        <i class="fa fa-search fa-fw" aria-hidden="true"></i>
+                    </button>
                 </div>
             </form>
         </div>
@@ -85,8 +87,10 @@
                 @elseif ($params['language'] == $value)
                      <p class="actives">
                     {{ $value}}
-                     <a href="#" class="closes"><i class="fa fa-times-circle" aria-hidden="true"></i></a href="#">
-                     <i>{{$count}}</i>
+                     <a href="#" class="closes">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                     </a>
+                     
                     </p><br>
                 @endif
             @endforeach
